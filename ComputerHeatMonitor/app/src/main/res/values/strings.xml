@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">Computer Heat Monitor</string>
+    <string name="bluetooth_toggle">Bluetooth Toggle</string>
+    <string name="paired_devices">Paired Devices</string>
+</resources>
