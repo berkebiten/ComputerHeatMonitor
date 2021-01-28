@@ -5,7 +5,6 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 
@@ -22,13 +21,7 @@ public class MainActivity extends AppCompatActivity {
         bt = BluetoothAdapter.getDefaultAdapter();
         btToggle = (Button) findViewById(R.id.btToggle);
         
-        btToggle.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                toggleBluetooth();
-            }
-
-        });
+        btToggle.setOnClickListener(v -> toggleBluetooth());
     }
 
     private void toggleBluetooth() {
@@ -38,6 +31,9 @@ public class MainActivity extends AppCompatActivity {
         if (!bt.isEnabled()){
             Intent enableBT = new Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE);
             startActivity(enableBT);
+        }
+        if (bt.isEnabled()){
+            bt.disable();
         }
     }
 
