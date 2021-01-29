@@ -18,7 +18,6 @@ import java.util.Set;
 public class MainActivity extends AppCompatActivity {
 
     BluetoothAdapter bt;
-    private Set<BluetoothDevice> pairedDevices;
     Button btToggle, pairButton;
     ListView pairedList;
 
@@ -40,7 +39,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void listDevices(){
-        pairedDevices = bt.getBondedDevices();
+        Set<BluetoothDevice> pairedDevices = bt.getBondedDevices();
         ArrayList list = new ArrayList();
 
         if (pairedDevices.size() > 0){
