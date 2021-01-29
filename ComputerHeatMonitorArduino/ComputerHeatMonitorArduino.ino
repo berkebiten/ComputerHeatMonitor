@@ -1,42 +1,20 @@
 #include <SoftwareSerial.h>
 
-SoftwareSerial BTserial(10,11); //RX/TX
+SoftwareSerial hc06(10,11);
 
-int sensorPin = 0;
-int redPin = 7;
-int greenPin = 6;
-int bluePin = 5;
-
+int sensorPin = A0;
 float temp;
+char input;
 
 void setup() {
-
   Serial.begin(9600);
-  BTserial.begin(9600);
-  pinMode(redPin, OUTPUT);
-  pinMode(greenPin, OUTPUT);
-  pinMode(bluePin, OUTPUT);
-
+  hc06.begin(9600);
 }
 
 void loop() {
   temp = analogRead(sensorPin);
   temp = (5.0 * temp * 1000.0) / (1024 * 10);
-
   Serial.println(temp);
-  BTserial.println(temp);
-
-  if(temp < 25){
-    setColor(0, 255, 0);
-  } else {
-    setColor(255, 0, 0);
-  }
-
+  hc06.println(temp);
   delay(5000);
-}
-
-void setColor(int redValue, int greenValue, int blueValue){
-  analogWrite(redPin, redValue);
-  analogWrite(greenPin, greenValue);
-  analogWrite(bluePin, blueValue);
 }
