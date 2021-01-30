@@ -1,7 +1,11 @@
 package com.example.computerheatmonitor;
-
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.NotificationCompat;
+import androidx.core.app.NotificationManagerCompat;
+
 import android.annotation.SuppressLint;
+import android.app.Notification;
 import android.app.ProgressDialog;
 import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;
@@ -11,16 +15,17 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.AsyncTask;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
 import android.util.Log;
-import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 import retrofit2.Call;
@@ -38,6 +43,8 @@ public class sensorDataActivity extends AppCompatActivity{
     public static String EXTRA_ID = "id";
     private static String variable_id;
     private boolean isBluetoothConnected = false;
+    List<Temperature> last5;
+    double temp_thold = 27.0;
     Button btnClear, summaryBtn;
     TextView tvReceivedData;
     TextView results;
@@ -94,6 +101,7 @@ public class sensorDataActivity extends AppCompatActivity{
             Intent summaryPage = new Intent(sensorDataActivity.this, summaryPage.class);
             summaryPage.putExtra(EXTRA_AUTH, xAuthToken);
             summaryPage.putExtra(EXTRA_ID, variable_id);
+            Log.e(TAG,"ID: "+ variable_id);
             startActivity(summaryPage);
         });
 
@@ -219,11 +227,13 @@ public class sensorDataActivity extends AppCompatActivity{
                     Log.e(TAG, response.message());
                 }
                 List<Temperature> temperatures = response.body().getResults();
+                last5 = temperatures;
                 String output = "";
                 for (Temperature temp: temperatures){
                     output += temp.getMeasurement().toString() + "°C\n";
                 }
                 results.setText(output);
+                doCalculations();
             }
 
             @Override
@@ -272,6 +282,46 @@ public class sensorDataActivity extends AppCompatActivity{
             }
         });
 
+    }
+
+    public void doCalculations(){
+        Log.e(TAG,"im in calculations");
+        boolean warning = true;
+        ArrayList<Double> lastMeas = new ArrayList<>(5);
+        for(int i = 0;i<last5.size();i++){
+            double temp = last5.get(i).getMeasurement();
+            lastMeas.add(temp);
+            if (temp<temp_thold){
+                warning = false;
+            }
+        }
+        double last = lastMeas.get(4);
+
+        if (warning){
+            Log.e(TAG,"10mins");
+            sendNotification("Warning","System has stayed hot for 10minutes.");
+        }
+        else if (last>temp_thold){
+            Log.e(TAG,"last");
+            sendNotification("Warning","System is hot just now.");
+        }
+        else{
+            Log.e(TAG,"cooled");
+            sendNotification("Information","System cooled down.");
+        }
+
+    }
+
+    public void sendNotification(String title,String text){
+        NotificationCompat.Builder builder = new NotificationCompat.Builder(this, "com.example.simpleapp")
+                .setSmallIcon(R.drawable.ic_stat_device_thermostat)
+                .setContentTitle(title)
+                .setContentText(text)
+                .setStyle(new NotificationCompat.BigTextStyle()
+                        .bigText(text))
+                .setPriority(NotificationCompat.PRIORITY_DEFAULT);
+        NotificationManagerCompat notificationManager = NotificationManagerCompat.from(this);
+        notificationManager.notify(2, builder.build());
     }
 
     private void Disconnect(){
