@@ -36,7 +36,7 @@ public class sensorDataActivity extends AppCompatActivity{
     private static final String TAG = "BluetoothControl";
     public static String EXTRA_AUTH = "auth_token";
     public static String EXTRA_ID = "id";
-    private static String id = "60140ae91d847245c46f2886";
+    private static String variable_id;
     private boolean isBluetoothConnected = false;
     Button btnClear, summaryBtn;
     TextView tvReceivedData;
@@ -93,7 +93,7 @@ public class sensorDataActivity extends AppCompatActivity{
         summaryBtn.setOnClickListener(v -> {
             Intent summaryPage = new Intent(sensorDataActivity.this, summaryPage.class);
             summaryPage.putExtra(EXTRA_AUTH, xAuthToken);
-            summaryPage.putExtra(EXTRA_ID, id);
+            summaryPage.putExtra(EXTRA_ID, variable_id);
             startActivity(summaryPage);
         });
 
@@ -105,7 +105,7 @@ public class sensorDataActivity extends AppCompatActivity{
             createDeviceVariable(var);
         }
         Log.e(TAG,"UUID: "+uniqueID);
-
+        getVariableId();
     }
 
     void beginListenForData() {
@@ -148,7 +148,7 @@ public class sensorDataActivity extends AppCompatActivity{
                                         System.out.println("Exception e");
                                     }
 
-                                    getTemperature(id);
+                                    getTemperature(variable_id);
                                 });
                             }
                             else {
@@ -181,6 +181,28 @@ public class sensorDataActivity extends AppCompatActivity{
 
             @Override
             public void onFailure(Call<Variable> call, Throwable t) {
+                Log.e(TAG, "Unsuccessful " + t);
+            }
+        });
+
+    }
+
+
+    public void getVariableId(){
+        Call<Result> call = ubidotsApi.getVariableId(xAuthToken, uniqueID);
+
+        call.enqueue(new Callback<Result>() {
+            @Override
+            public void onResponse(Call<Result> call, Response<Result> response) {
+                if(!response.isSuccessful()){
+                    Log.e(TAG, response.message());
+                }
+                variable_id = response.body().getId();
+                Log.e(TAG, "variable_id  " + variable_id);
+            }
+
+            @Override
+            public void onFailure(Call<Result> call, Throwable t) {
                 Log.e(TAG, "Unsuccessful " + t);
             }
         });
@@ -234,7 +256,7 @@ public class sensorDataActivity extends AppCompatActivity{
 //    }
 
     public void insertTemperature(Temperature temp) {
-        Call<Temperature> call = ubidotsApi.insertTemperature(xAuthToken, temp);
+        Call<Temperature> call = ubidotsApi.insertTemperature(xAuthToken, uniqueID, temp);
 
         call.enqueue(new Callback<Temperature>() {
             @Override

@@ -7,34 +7,92 @@
     tools:context=".summaryPage">
 
     <Button
+        android:id="@+id/monthly"
+        android:layout_width="109dp"
+        android:layout_height="46dp"
+        android:layout_marginEnd="42dp"
+        android:text="Monthly"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/weekly"
+        tools:ignore="MissingConstraints"
+        tools:layout_editor_absoluteY="46dp" />
+
+    <Button
         android:id="@+id/daily"
-        android:layout_width="0dp"
-        android:layout_height="48dp"
-        android:layout_marginStart="34dp"
-        android:layout_marginEnd="21dp"
+        android:layout_width="109dp"
+        android:layout_height="46dp"
+        android:layout_marginStart="42dp"
+        android:layout_marginBottom="58dp"
         android:text="Daily"
-        app:layout_constraintBaseline_toBaselineOf="@+id/weekly"
+        app:layout_constraintBottom_toTopOf="@+id/mean"
         app:layout_constraintEnd_toStartOf="@+id/weekly"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        tools:ignore="MissingConstraints" />
 
     <Button
         android:id="@+id/weekly"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="46dp"
-        android:layout_marginEnd="18dp"
+        android:layout_width="109dp"
+        android:layout_height="46dp"
+        android:layout_marginBottom="58dp"
         android:text="Weekly"
+        app:layout_constraintBottom_toTopOf="@+id/mean"
         app:layout_constraintEnd_toStartOf="@+id/monthly"
         app:layout_constraintStart_toEndOf="@+id/daily"
-        app:layout_constraintTop_toTopOf="parent" />
+        tools:ignore="MissingConstraints" />
 
-    <Button
-        android:id="@+id/monthly"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="38dp"
-        android:text="Monthly"
-        app:layout_constraintBaseline_toBaselineOf="@+id/weekly"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/weekly" />
+    <TextView
+        android:id="@+id/mean"
+        android:layout_width="331dp"
+        android:layout_height="26dp"
+        android:layout_marginTop="58dp"
+        android:layout_marginBottom="15dp"
+        android:text="TextView"
+        app:layout_constraintBottom_toTopOf="@+id/variance"
+        app:layout_constraintTop_toBottomOf="@+id/monthly"
+        tools:ignore="MissingConstraints"
+        tools:layout_editor_absoluteX="40dp" />
+
+    <TextView
+        android:id="@+id/variance"
+        android:layout_width="331dp"
+        android:layout_height="26dp"
+        android:layout_marginBottom="15dp"
+        android:text="TextView"
+        app:layout_constraintBottom_toTopOf="@+id/max"
+        app:layout_constraintTop_toBottomOf="@+id/mean"
+        tools:ignore="MissingConstraints"
+        tools:layout_editor_absoluteX="40dp" />
+
+    <TextView
+        android:id="@+id/min"
+        android:layout_width="331dp"
+        android:layout_height="26dp"
+        android:layout_marginTop="15dp"
+        android:text="TextView"
+        app:layout_constraintTop_toBottomOf="@+id/count"
+        tools:ignore="MissingConstraints"
+        tools:layout_editor_absoluteX="40dp" />
+
+    <TextView
+        android:id="@+id/max"
+        android:layout_width="331dp"
+        android:layout_height="26dp"
+        android:layout_marginBottom="15dp"
+        android:text="TextView"
+        app:layout_constraintBottom_toTopOf="@+id/count"
+        app:layout_constraintTop_toBottomOf="@+id/variance"
+        tools:ignore="MissingConstraints"
+        tools:layout_editor_absoluteX="40dp" />
+
+    <TextView
+        android:id="@+id/count"
+        android:layout_width="331dp"
+        android:layout_height="26dp"
+        android:layout_marginBottom="15dp"
+        android:text="TextView"
+        app:layout_constraintBottom_toTopOf="@+id/min"
+        app:layout_constraintTop_toBottomOf="@+id/max"
+        tools:ignore="MissingConstraints"
+        tools:layout_editor_absoluteX="40dp" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

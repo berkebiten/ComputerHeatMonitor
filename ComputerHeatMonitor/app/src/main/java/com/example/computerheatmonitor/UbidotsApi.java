@@ -17,12 +17,15 @@ public interface UbidotsApi {
     @POST("auth/token")
     Call<Token> getAuth(@Header("x-ubidots-apikey") String apiKey);
 
-    @POST("devices/android-phone/temperature/values/")
-    Call<Temperature> insertTemperature(@Header("X-Auth-Token") String token, @Body Temperature temperature);
+    @POST("devices/{device_label}/temperature/values/")
+    Call<Temperature> insertTemperature(@Header("X-Auth-Token") String token,@Path("device_label") String device_label, @Body Temperature temperature);
 
     @POST("devices/{device_label}/")
     Call<Variable> addDevice(@Header("X-Auth-Token") String token, @Path("device_label") String device_label, @Body Variable variable);
 
+    @GET("devices/{device_label}/temperature/")
+    Call<Result> getVariableId(@Header("X-Auth-Token") String token, @Path("device_label") String device_label);
+
     @GET("variables/{id}/statistics/{aggregation}/{start}/{end}/")
-    Call<Summary> getSummary(@Header("X-Auth-Token") String token, @Path("id") String id, @Path("aggregation") String aggregation, @Path("start") Timestamp start, @Path("end") Timestamp end);
+    Call<Summary> getSummary(@Header("X-Auth-Token") String token, @Path("id") String id, @Path("aggregation") String aggregation, @Path("start") long start, @Path("end") long end);
 }
