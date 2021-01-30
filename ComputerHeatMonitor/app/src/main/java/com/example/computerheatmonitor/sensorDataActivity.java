@@ -1,13 +1,13 @@
 package com.example.computerheatmonitor;
 
 import androidx.appcompat.app.AppCompatActivity;
-
 import android.annotation.SuppressLint;
 import android.app.ProgressDialog;
 import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;
 import android.bluetooth.BluetoothSocket;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
@@ -16,12 +16,8 @@ import android.util.Log;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
-
-import org.json.JSONObject;
-
 import java.io.IOException;
 import java.io.InputStream;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 import retrofit2.Call;
@@ -96,7 +92,16 @@ public class sensorDataActivity extends AppCompatActivity{
                                 readBufferPosition = 0;
 
                                 handler.post(() -> {
-                                    tvReceivedData.setText(data);
+                                    tvReceivedData.setText((data + "°C"));
+
+                                    if (Double.parseDouble(data) < 25) {
+                                        tvReceivedData.setTextColor(Color.GREEN);
+                                    } else if (Double.parseDouble(data) < 27){
+                                        tvReceivedData.setTextColor(Color.YELLOW);
+                                    } else {
+                                        tvReceivedData.setTextColor(Color.RED);
+                                    }
+
                                     Temperature temp = new Temperature(data);
                                     try {
                                         insertTemperature(temp);
@@ -134,7 +139,7 @@ public class sensorDataActivity extends AppCompatActivity{
                 List<Temperature> temperatures = response.body().getResults();
                 String output = "";
                 for (Temperature temp: temperatures){
-                    output += temp.getMeasurement().toString() + "\n";
+                    output += temp.getMeasurement().toString() + "°C\n";
                 }
                 results.setText(output);
             }

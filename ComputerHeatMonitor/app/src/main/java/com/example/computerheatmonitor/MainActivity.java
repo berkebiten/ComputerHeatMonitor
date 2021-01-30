@@ -11,7 +11,6 @@ import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import java.util.ArrayList;
 import java.util.Set;
 
@@ -33,7 +32,7 @@ public class MainActivity extends AppCompatActivity {
         btToggle = findViewById(R.id.btToggle);
         pairButton = findViewById(R.id.pairButton);
         pairedList = findViewById(R.id.pairedList);
-
+        startService(new Intent(this, backgroundService.class));
         pairButton.setOnClickListener(v -> listDevices());
         btToggle.setOnClickListener(v -> toggleBluetooth());
     }

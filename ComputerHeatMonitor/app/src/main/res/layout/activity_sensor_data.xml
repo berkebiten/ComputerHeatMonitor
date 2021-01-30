@@ -11,10 +11,10 @@
         android:id="@+id/btnClear"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="92dp"
-        android:layout_marginBottom="61dp"
+        android:layout_marginTop="82dp"
+        android:layout_marginBottom="21dp"
         android:text="@string/clear"
-        app:layout_constraintBottom_toTopOf="@+id/tvReceivedData"
+        app:layout_constraintBottom_toTopOf="@+id/currentTemp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
@@ -22,25 +22,56 @@
 
     <TextView
         android:id="@+id/tvReceivedData"
-        android:layout_width="61dp"
-        android:layout_height="27dp"
+        android:layout_width="137dp"
+        android:layout_height="57dp"
         android:layout_marginBottom="92dp"
+        android:gravity="center"
         android:text="textview"
+        android:textColor="@color/white"
+        android:textSize="32dp"
         app:layout_constraintBottom_toTopOf="@+id/results"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/btnClear"
+        app:layout_constraintVertical_bias="1.0"
         tools:ignore="MissingConstraints" />
 
     <TextView
         android:id="@+id/results"
-        android:layout_width="72dp"
+        android:layout_width="81dp"
         android:layout_height="0dp"
-        android:layout_marginBottom="239dp"
+        android:layout_marginBottom="300dp"
+        android:gravity="center"
         android:text="TextView2"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tvReceivedData"
+        app:layout_constraintTop_toBottomOf="@+id/currentTemp"
+        tools:ignore="MissingConstraints" />
+
+    <TextView
+        android:id="@+id/previousFive"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="4dp"
+        android:gravity="center"
+        android:text="Last Five Measurements"
+        android:textSize="20dp"
+        app:layout_constraintBottom_toTopOf="@+id/results"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <TextView
+        android:id="@+id/currentTemp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="151dp"
+        android:gravity="center"
+        android:text="Current Measurement"
+        android:textSize="20dp"
+        app:layout_constraintBottom_toTopOf="@+id/results"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btnClear"
         tools:ignore="MissingConstraints" />
 </androidx.constraintlayout.widget.ConstraintLayout>
