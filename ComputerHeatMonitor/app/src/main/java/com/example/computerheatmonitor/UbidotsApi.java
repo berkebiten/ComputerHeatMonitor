@@ -1,5 +1,7 @@
 package com.example.computerheatmonitor;
 
+import java.sql.Timestamp;
+
 import retrofit2.Call;
 import retrofit2.http.POST;
 import retrofit2.http.GET;
@@ -21,5 +23,6 @@ public interface UbidotsApi {
     @POST("devices/{device_label}/")
     Call<device> addDevice(@Header("X-Auth-Token") String token, @Path("device_label") String device_label, @Body String variable_label);
 
-    
+    @GET("variables/{id}/statistics/{aggregation}/{start}/{end}/")
+    Call<Summary> getSummary(@Header("X-Auth-Token") String token, @Path("id") String id, @Path("aggregation") String aggregation, @Path("start") Timestamp start, @Path("end") Timestamp end);
 }

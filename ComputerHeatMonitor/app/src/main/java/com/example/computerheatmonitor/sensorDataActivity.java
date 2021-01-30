@@ -13,6 +13,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
 import android.util.Log;
+import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -30,8 +31,11 @@ public class sensorDataActivity extends AppCompatActivity{
 
     static final UUID MY_UUID = UUID.fromString("00001101-0000-1000-8000-00805F9B34FB");
     private static final String TAG = "BluetoothControl";
+    public static String EXTRA_AUTH = "auth_token";
+    public static String EXTRA_ID = "id";
+    private static String id = "60140ae91d847245c46f2886";
     private boolean isBluetoothConnected = false;
-    Button btnClear;
+    Button btnClear, summaryBtn;
     TextView tvReceivedData;
     TextView results;
     String address = null;
@@ -62,8 +66,16 @@ public class sensorDataActivity extends AppCompatActivity{
         results = findViewById(R.id.results);
         tvReceivedData = findViewById(R.id.tvReceivedData);
         btnClear = findViewById(R.id.btnClear);
+        summaryBtn = findViewById(R.id.summaryBtn);
 
         new BTConnectAsync().execute();
+
+        summaryBtn.setOnClickListener(v -> {
+            Intent summaryPage = new Intent(sensorDataActivity.this, summaryPage.class);
+            summaryPage.putExtra(EXTRA_AUTH, xAuthToken);
+            summaryPage.putExtra(EXTRA_ID, id);
+            startActivity(summaryPage);
+        });
 
         btnClear.setOnClickListener(view -> tvReceivedData.setText(" "));
 
@@ -109,7 +121,7 @@ public class sensorDataActivity extends AppCompatActivity{
                                         System.out.println("Exception e");
                                     }
 
-                                    getTemperature("60140ae91d847245c46f2886");
+                                    getTemperature(id);
                                 });
                             }
                             else {

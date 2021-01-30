@@ -74,4 +74,13 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/btnClear"
         tools:ignore="MissingConstraints" />
+
+    <Button
+        android:id="@+id/summaryBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Summary"
+        tools:layout_editor_absoluteX="151dp"
+        tools:layout_editor_absoluteY="576dp"
+        tools:ignore="MissingConstraints" />
 </androidx.constraintlayout.widget.ConstraintLayout>
