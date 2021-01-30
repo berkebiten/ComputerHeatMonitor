@@ -21,7 +21,7 @@ public interface UbidotsApi {
     Call<Temperature> insertTemperature(@Header("X-Auth-Token") String token, @Body Temperature temperature);
 
     @POST("devices/{device_label}/")
-    Call<device> addDevice(@Header("X-Auth-Token") String token, @Path("device_label") String device_label, @Body String variable_label);
+    Call<Variable> addDevice(@Header("X-Auth-Token") String token, @Path("device_label") String device_label, @Body Variable variable);
 
     @GET("variables/{id}/statistics/{aggregation}/{start}/{end}/")
     Call<Summary> getSummary(@Header("X-Auth-Token") String token, @Path("id") String id, @Path("aggregation") String aggregation, @Path("start") Timestamp start, @Path("end") Timestamp end);

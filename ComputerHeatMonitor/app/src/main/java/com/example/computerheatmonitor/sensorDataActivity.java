@@ -46,26 +46,29 @@ public class sensorDataActivity extends AppCompatActivity{
     BluetoothAdapter mBluetoothAdapter = null;
     BluetoothSocket mBluetoothSocket = null;
     UbidotsApi ubidotsApi;
-    private String xAuthToken;
+    private final String xAuthToken = "BBFF-AyLqts6DBRziinDA5485Wvy1EmD8q2";
     InputStream mInputStream;
     Thread workerThread;
     byte[] readBuffer;
     int readBufferPosition;
     volatile boolean stopWorker;
 
-    public synchronized static String get_id(Context context) {
+    public synchronized static boolean get_id(Context context) {
+        boolean doesExist = true;
         if (uniqueID == null) {
             SharedPreferences sharedPrefs = context.getSharedPreferences(
                     PREF_UNIQUE_ID, Context.MODE_PRIVATE);
             uniqueID = sharedPrefs.getString(PREF_UNIQUE_ID, null);
             if (uniqueID == null) {
+                doesExist = false;
                 uniqueID = UUID.randomUUID().toString();
                 SharedPreferences.Editor editor = sharedPrefs.edit();
                 editor.putString(PREF_UNIQUE_ID, uniqueID);
                 editor.commit();
+
             }
         }
-        return uniqueID;
+        return doesExist;
     }
 
     @Override
@@ -80,7 +83,6 @@ public class sensorDataActivity extends AppCompatActivity{
                 .build();
 
         this.ubidotsApi = retrofit.create(UbidotsApi.class);
-        getAuth();
         results = findViewById(R.id.results);
         tvReceivedData = findViewById(R.id.tvReceivedData);
         btnClear = findViewById(R.id.btnClear);
@@ -96,7 +98,12 @@ public class sensorDataActivity extends AppCompatActivity{
         });
 
         btnClear.setOnClickListener(view -> tvReceivedData.setText(" "));
-        uniqueID = get_id(this);
+        boolean doesExist = get_id(this);
+        if (!doesExist){
+            int label = 25;
+            Variable var = new Variable(label);
+            createDeviceVariable(var);
+        }
         Log.e(TAG,"UUID: "+uniqueID);
 
     }
@@ -159,6 +166,27 @@ public class sensorDataActivity extends AppCompatActivity{
         workerThread.start();
     }
 
+    public void createDeviceVariable(Variable tempVariable){
+        Log.e(TAG,"token: "+xAuthToken);
+        Log.e(TAG,"variable: "+tempVariable.getDeviceLabel());
+        Call<Variable> call = ubidotsApi.addDevice("BBFF-AyLqts6DBRziinDA5485Wvy1EmD8q2", uniqueID, tempVariable);
+
+        call.enqueue(new Callback<Variable>() {
+            @Override
+            public void onResponse(Call<Variable> call, Response<Variable> response) {
+                if(!response.isSuccessful()){
+                    Log.e(TAG, response.message());
+                }
+            }
+
+            @Override
+            public void onFailure(Call<Variable> call, Throwable t) {
+                Log.e(TAG, "Unsuccessful " + t);
+            }
+        });
+
+    }
+
     public void getTemperature(String id){
         Call<Result> call = ubidotsApi.getTemperature(xAuthToken, id);
 
@@ -166,7 +194,7 @@ public class sensorDataActivity extends AppCompatActivity{
             @Override
             public void onResponse(Call<Result> call, Response<Result> response) {
                 if(!response.isSuccessful()){
-                    Log.e(TAG, "Unsuccessfull" + response.message());
+                    Log.e(TAG, response.message());
                 }
                 List<Temperature> temperatures = response.body().getResults();
                 String output = "";
@@ -184,26 +212,26 @@ public class sensorDataActivity extends AppCompatActivity{
 
     }
 
-    public void getAuth(){
-        Call<Token> call = ubidotsApi.getAuth("BBFF-6d0d857720f1cc053925242508684c9b6b0");
-
-        call.enqueue(new Callback<Token>(){
-
-            @Override
-            public void onResponse(Call<Token> call, Response<Token> response) {
-                if(!response.isSuccessful()){
-                    Log.e(TAG, "Unsuccessfull" + response.message());
-                }
-                Token token = response.body();
-                xAuthToken = token.getToken();
-            }
-
-            @Override
-            public void onFailure(Call<Token> call, Throwable t) {
-                Log.e(TAG, "Web Service Error." + t);
-            }
-        });
-    }
+//    public void getAuth(){
+//        Call<Token> call = ubidotsApi.getAuth("BBFF-6d0d857720f1cc053925242508684c9b6b0");
+//
+//        call.enqueue(new Callback<Token>(){
+//
+//            @Override
+//            public void onResponse(Call<Token> call, Response<Token> response) {
+//                if(!response.isSuccessful()){
+//                    Log.e(TAG, "Unsuccessfull" + response.message());
+//                }
+//                Token token = response.body();
+//                xAuthToken = token.getToken();
+//            }
+//
+//            @Override
+//            public void onFailure(Call<Token> call, Throwable t) {
+//                Log.e(TAG, "Web Service Error." + t);
+//            }
+//        });
+//    }
 
     public void insertTemperature(Temperature temp) {
         Call<Temperature> call = ubidotsApi.insertTemperature(xAuthToken, temp);

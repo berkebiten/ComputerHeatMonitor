@@ -2,17 +2,17 @@ package com.example.computerheatmonitor;
 
 import com.google.gson.annotations.SerializedName;
 
-public class device {
+public class Variable {
 
-    @SerializedName("device_label")
-    String deviceLabel;
+    @SerializedName("temperature")
+    int deviceLabel;
 
 
-    public device(String label){
+    public Variable(int label){
         this.deviceLabel = label;
     }
 
-    public String getDeviceLabel(){
+    public int getDeviceLabel(){
         return this.deviceLabel;
     }
 }

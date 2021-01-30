@@ -40,15 +40,15 @@ public class summaryPage extends AppCompatActivity {
                 .build();
 
         daily.setOnClickListener(v -> {
-            Timestamp start = new Timestamp(System.currentTimeMillis());
-            Timestamp end = start.getMonth() - 1;
-
-            Calendar cal = Calendar.getInstance();
-            cal.add(Calendar.DAY_OF_YEAR, -5);
-            long start = cal.getTimeInMillis();
-            this.ubidotsApi = retrofit.create(UbidotsApi.class);
-            Call<Summary> summary = ubidotsApi.getSummary(xAuthToken, id, "mean", start.getTime(), end);
-            this.mean =
+//            Timestamp start = new Timestamp(System.currentTimeMillis());
+//            Timestamp end = start.getMonth() - 1;
+//
+//            Calendar cal = Calendar.getInstance();
+//            cal.add(Calendar.DAY_OF_YEAR, -5);
+//            long start = cal.getTimeInMillis();
+//            this.ubidotsApi = retrofit.create(UbidotsApi.class);
+//            Call<Summary> summary = ubidotsApi.getSummary(xAuthToken, id, "mean", start.getTime(), end);
+//            this.mean =
         });
 
 
