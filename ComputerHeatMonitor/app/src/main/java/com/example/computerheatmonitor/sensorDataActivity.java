@@ -53,7 +53,7 @@ public class sensorDataActivity extends AppCompatActivity{
     BluetoothAdapter mBluetoothAdapter = null;
     BluetoothSocket mBluetoothSocket = null;
     UbidotsApi ubidotsApi;
-    private final String xAuthToken = "BBFF-AyLqts6DBRziinDA5485Wvy1EmD8q2";
+    private final String xAuthToken = "BBFF-KrSLZpjZzzEvaNdLsA6FcTssdIizJh";
     InputStream mInputStream;
     Thread workerThread;
     byte[] readBuffer;
@@ -176,7 +176,7 @@ public class sensorDataActivity extends AppCompatActivity{
     public void createDeviceVariable(Variable tempVariable){
         Log.e(TAG,"token: "+xAuthToken);
         Log.e(TAG,"variable: "+tempVariable.getDeviceLabel());
-        Call<Variable> call = ubidotsApi.addDevice("BBFF-AyLqts6DBRziinDA5485Wvy1EmD8q2", uniqueID, tempVariable);
+        Call<Variable> call = ubidotsApi.addDevice(xAuthToken, uniqueID, tempVariable);
 
         call.enqueue(new Callback<Variable>() {
             @Override
@@ -286,7 +286,7 @@ public class sensorDataActivity extends AppCompatActivity{
     public void doCalculations(){
         Log.e(TAG,"im in calculations");
         boolean warning = true;
-        ArrayList<Double> lastMeas = new ArrayList<>(5);
+        ArrayList<Double> lastMeas = new ArrayList<>();
         for(int i = 0;i<last5.size();i++){
             double temp = last5.get(i).getMeasurement();
             lastMeas.add(temp);
@@ -294,16 +294,17 @@ public class sensorDataActivity extends AppCompatActivity{
                 warning = false;
             }
         }
-        double last = lastMeas.get(4);
+        double last;
+        if(lastMeas.size()>=5) {
+            last = lastMeas.get(4);
 
-        if (warning){
-            sendNotification("Warning","System has stayed hot for 10minutes.");
-        }
-        else if (last>temp_thold){
-            sendNotification("Warning","System is hot.");
-        }
-        else{
-            sendNotification("Information","System cooled down.");
+            if (warning) {
+                sendNotification("Warning", "System has stayed hot for 10minutes.");
+            } else if (last > temp_thold) {
+                sendNotification("Warning", "System is hot.");
+            } else {
+                sendNotification("Information", "System cooled down.");
+            }
         }
 
     }
