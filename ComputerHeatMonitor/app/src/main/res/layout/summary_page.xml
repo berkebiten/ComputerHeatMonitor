@@ -1,8 +1,40 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:tools="http://schemas.android.com/tools"
     tools:context=".summaryPage">
 
+    <Button
+        android:id="@+id/daily"
+        android:layout_width="0dp"
+        android:layout_height="48dp"
+        android:layout_marginStart="34dp"
+        android:layout_marginEnd="21dp"
+        android:text="Daily"
+        app:layout_constraintBaseline_toBaselineOf="@+id/weekly"
+        app:layout_constraintEnd_toStartOf="@+id/weekly"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <Button
+        android:id="@+id/weekly"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="46dp"
+        android:layout_marginEnd="18dp"
+        android:text="Weekly"
+        app:layout_constraintEnd_toStartOf="@+id/monthly"
+        app:layout_constraintStart_toEndOf="@+id/daily"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/monthly"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="38dp"
+        android:text="Monthly"
+        app:layout_constraintBaseline_toBaselineOf="@+id/weekly"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/weekly" />
 </androidx.constraintlayout.widget.ConstraintLayout>

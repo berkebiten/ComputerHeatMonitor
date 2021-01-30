@@ -6,7 +6,9 @@ import android.app.ProgressDialog;
 import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;
 import android.bluetooth.BluetoothSocket;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -28,7 +30,8 @@ import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 public class sensorDataActivity extends AppCompatActivity{
-
+    private static String uniqueID = null;
+    private static final String PREF_UNIQUE_ID = "PREF_UNIQUE_ID";
     static final UUID MY_UUID = UUID.fromString("00001101-0000-1000-8000-00805F9B34FB");
     private static final String TAG = "BluetoothControl";
     public static String EXTRA_AUTH = "auth_token";
@@ -42,13 +45,28 @@ public class sensorDataActivity extends AppCompatActivity{
     private ProgressDialog progressDialog;
     BluetoothAdapter mBluetoothAdapter = null;
     BluetoothSocket mBluetoothSocket = null;
-    private UbidotsApi ubidotsApi;
+    UbidotsApi ubidotsApi;
     private String xAuthToken;
     InputStream mInputStream;
     Thread workerThread;
     byte[] readBuffer;
     int readBufferPosition;
     volatile boolean stopWorker;
+
+    public synchronized static String get_id(Context context) {
+        if (uniqueID == null) {
+            SharedPreferences sharedPrefs = context.getSharedPreferences(
+                    PREF_UNIQUE_ID, Context.MODE_PRIVATE);
+            uniqueID = sharedPrefs.getString(PREF_UNIQUE_ID, null);
+            if (uniqueID == null) {
+                uniqueID = UUID.randomUUID().toString();
+                SharedPreferences.Editor editor = sharedPrefs.edit();
+                editor.putString(PREF_UNIQUE_ID, uniqueID);
+                editor.commit();
+            }
+        }
+        return uniqueID;
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -78,6 +96,8 @@ public class sensorDataActivity extends AppCompatActivity{
         });
 
         btnClear.setOnClickListener(view -> tvReceivedData.setText(" "));
+        uniqueID = get_id(this);
+        Log.e(TAG,"UUID: "+uniqueID);
 
     }
 
