@@ -41,7 +41,7 @@ public class backgroundService extends Service {
         @RequiresApi(api = Build.VERSION_CODES.O)
         private void startForeground() {
             String NOTIFICATION_CHANNEL_ID = "com.example.simpleapp";
-            String channelName = "My Background Service";
+            String channelName = "CHM Background Service";
             NotificationChannel chan = new NotificationChannel(NOTIFICATION_CHANNEL_ID, channelName, NotificationManager.IMPORTANCE_NONE);
             chan.setLightColor(Color.BLUE);
             chan.setLockscreenVisibility(Notification.VISIBILITY_PRIVATE);

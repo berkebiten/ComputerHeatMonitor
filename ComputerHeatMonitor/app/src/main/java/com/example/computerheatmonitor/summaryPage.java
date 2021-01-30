@@ -58,9 +58,8 @@ public class summaryPage extends AppCompatActivity {
                 .build();
         this.ubidotsApi = retrofit.create(UbidotsApi.class);
 
-        getTemperature(id);
-
         daily.setOnClickListener(v -> {
+            graph.removeAllSeries();
             Calendar c = Calendar.getInstance();
             Timestamp a = new Timestamp(c.getTimeInMillis());
             long end = a.getTime();
@@ -72,9 +71,12 @@ public class summaryPage extends AppCompatActivity {
             getMin(start, end);
             getMax(start, end);
             getCount(start, end);
+
+            getTemperatures(id, 720, 'D');
         });
 
         monthly.setOnClickListener(v -> {
+            graph.removeAllSeries();
             Calendar c = Calendar.getInstance();
             Timestamp a = new Timestamp(c.getTimeInMillis());
             long end = a.getTime();
@@ -86,9 +88,11 @@ public class summaryPage extends AppCompatActivity {
             getMin(start, end);
             getMax(start, end);
             getCount(start, end);
+            getTemperatures(id, 5040, 'M');
         });
 
         weekly.setOnClickListener(v -> {
+            graph.removeAllSeries();
             Calendar c = Calendar.getInstance();
             Timestamp a = new Timestamp(c.getTimeInMillis());
             long end = a.getTime();
@@ -100,6 +104,7 @@ public class summaryPage extends AppCompatActivity {
             getMin(start, end);
             getMax(start, end);
             getCount(start, end);
+            getTemperatures(id, 21600, 'W');
         });
     }
 
@@ -211,27 +216,8 @@ public class summaryPage extends AppCompatActivity {
 
     }
 
-    @Override
-    public void onResume() {
-        super.onResume();
-        mTimer1 = new Runnable() {
-            @Override
-            public void run() {
-                mSeries1.resetData(getData());
-                mHandler.postDelayed(this, 300);
-            }
-        };
-        mHandler.postDelayed(mTimer1, 300);
-    }
-
-    @Override
-    public void onPause() {
-        mHandler.removeCallbacks(mTimer1);
-        super.onPause();
-    }
-
-    public void getTemperature(String id){
-        Call<Result> call = ubidotsApi.getTemperature(xAuthToken, id);
+    public void getTemperatures(String id, int size, char type){
+        Call<Result> call = ubidotsApi.getTemperatures(xAuthToken, id, size);
 
         call.enqueue(new Callback<Result>() {
             @Override
@@ -240,7 +226,7 @@ public class summaryPage extends AppCompatActivity {
                     Log.e(TAG, response.message());
                 }
                 output = response.body().getResults();
-                data = getData();
+                data = getData(type);
                 mSeries1 = new LineGraphSeries<>(data);
                 graph.addSeries(mSeries1);
             }
@@ -253,11 +239,33 @@ public class summaryPage extends AppCompatActivity {
 
     }
 
-    private DataPoint[] getData() {
+    private DataPoint[] getData(char type) {
         int count = output.size();
+        Log.e(TAG, "size" + count);
+        if (type == 'D'){
+            count /= 30;
+        }else{
+            count /= 720;
+        }
+
         DataPoint[] values = new DataPoint[count];
         for (int i=0; i<count; i++) {
-            double y = output.get(i).getMeasurement();;
+            double sum = 0;
+            if (type == 'D'){
+                for (int j = 0;j<30;j++){
+                    sum += output.get((i * 30) + j).getMeasurement();
+                }
+            }else{
+                for (int j = 0;j<720;j++){
+                    sum += output.get((i * 720) + j).getMeasurement();
+                }
+            }
+            double y;
+            if (type == 'D'){
+                y = sum / 30.0;
+            } else {
+                y = sum / 720.0;
+            }
             DataPoint v = new DataPoint(i, y);
             values[i] = v;
         }

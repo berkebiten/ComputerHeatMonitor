@@ -170,7 +170,6 @@ public class sensorDataActivity extends AppCompatActivity{
                 }
             }
         });
-
         workerThread.start();
     }
 
@@ -189,7 +188,7 @@ public class sensorDataActivity extends AppCompatActivity{
 
             @Override
             public void onFailure(Call<Variable> call, Throwable t) {
-                Log.e(TAG, "Unsuccessful " + t);
+                Log.e(TAG, "create device var " + t);
             }
         });
 
@@ -211,7 +210,7 @@ public class sensorDataActivity extends AppCompatActivity{
 
             @Override
             public void onFailure(Call<Result> call, Throwable t) {
-                Log.e(TAG, "Unsuccessful " + t);
+                Log.e(TAG, "get var id  " + t);
             }
         });
 
@@ -238,7 +237,7 @@ public class sensorDataActivity extends AppCompatActivity{
 
             @Override
             public void onFailure(Call<Result> call, Throwable t) {
-                Log.e(TAG, "Unsuccessful " + t);
+                Log.e(TAG, "get temp  " + t);
             }
         });
 
@@ -272,7 +271,7 @@ public class sensorDataActivity extends AppCompatActivity{
             @Override
             public void onResponse(Call<Temperature> call, Response<Temperature> response) {
                 if(!response.isSuccessful()){
-                    Log.e(TAG, "Unsuccessfull" + response.message());
+                    Log.e(TAG, "insert temp response failed " + response.message());
                 }
             }
 
@@ -298,15 +297,12 @@ public class sensorDataActivity extends AppCompatActivity{
         double last = lastMeas.get(4);
 
         if (warning){
-            Log.e(TAG,"10mins");
             sendNotification("Warning","System has stayed hot for 10minutes.");
         }
         else if (last>temp_thold){
-            Log.e(TAG,"last");
-            sendNotification("Warning","System is hot just now.");
+            sendNotification("Warning","System is hot.");
         }
         else{
-            Log.e(TAG,"cooled");
             sendNotification("Information","System cooled down.");
         }
 

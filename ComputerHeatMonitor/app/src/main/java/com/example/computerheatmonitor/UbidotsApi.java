@@ -8,14 +8,15 @@ import retrofit2.http.GET;
 import retrofit2.http.Body;
 import retrofit2.http.Header;
 import retrofit2.http.Path;
+import retrofit2.http.Query;
 
 public interface UbidotsApi {
 
     @GET("variables/{id}/values?page=1&page_size=5")
     Call<Result> getTemperature(@Header("X-Auth-Token") String token, @Path("id") String id);
 
-    @GET("variables/{id}/values?page=1&page_size=5")
-    Call<Result> getTemperatures(@Header("X-Auth-Token") String token, @Path("id") String id);
+    @GET("variables/{id}/values?page=1")
+    Call<Result> getTemperatures(@Header("X-Auth-Token") String token, @Path("id") String id, @Query("page_size") int size);
 
     @POST("auth/token")
     Call<Token> getAuth(@Header("x-ubidots-apikey") String apiKey);
