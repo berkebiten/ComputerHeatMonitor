@@ -229,6 +229,8 @@ public class summaryPage extends AppCompatActivity {
                 data = getData(type);
                 mSeries1 = new LineGraphSeries<>(data);
                 graph.addSeries(mSeries1);
+                graph.getViewport().setYAxisBoundsManual(true);
+                graph.getViewport().setXAxisBoundsManual(true);
             }
 
             @Override

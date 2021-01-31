@@ -55,6 +55,7 @@ public class sensorDataActivity extends AppCompatActivity{
     UbidotsApi ubidotsApi;
     private final String xAuthToken = "BBFF-KrSLZpjZzzEvaNdLsA6FcTssdIizJh";
     InputStream mInputStream;
+    TextView yourDeviceID;
     Thread workerThread;
     byte[] readBuffer;
     int readBufferPosition;
@@ -94,6 +95,8 @@ public class sensorDataActivity extends AppCompatActivity{
         tvReceivedData = findViewById(R.id.tvReceivedData);
         btnClear = findViewById(R.id.btnClear);
         summaryBtn = findViewById(R.id.summaryBtn);
+        yourDeviceID = findViewById(R.id.uuid);
+
 
         new BTConnectAsync().execute();
 
@@ -112,6 +115,7 @@ public class sensorDataActivity extends AppCompatActivity{
             Variable var = new Variable(label);
             createDeviceVariable(var);
         }
+        yourDeviceID.setText(uniqueID);
         Log.e(TAG,"UUID: "+uniqueID);
         getVariableId();
     }
@@ -347,7 +351,7 @@ public class sensorDataActivity extends AppCompatActivity{
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
-            progressDialog = ProgressDialog.show(sensorDataActivity.this, "Bağlanıyor..", "Lütfen bekleyin");
+            progressDialog = ProgressDialog.show(sensorDataActivity.this, "Connecting..", "Please Wait.");
         }
 
         @Override
@@ -373,10 +377,10 @@ public class sensorDataActivity extends AppCompatActivity{
         protected void onPostExecute(Void aVoid) {
             super.onPostExecute(aVoid);
             if (!ConnectSuccess) {
-                Toast.makeText(getApplicationContext(), "Bağlantı Hatası Tekrar Deneyin", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getApplicationContext(), "Connection error. Please Try Again.", Toast.LENGTH_SHORT).show();
                 finish();
             } else {
-                Toast.makeText(getApplicationContext(), "Bağlantı Başarılı", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getApplicationContext(), "Connected Successfully", Toast.LENGTH_SHORT).show();
                 isBluetoothConnected = true;
                 beginListenForData();
             }
