@@ -1,4 +1,4 @@
-#include <SoftwareSerial.h>
+nra #include <SoftwareSerial.h>
 
 SoftwareSerial hc06(10,11);
 
@@ -16,5 +16,5 @@ void loop() {
   temp = (5.0 * temp * 1000.0) / (1024 * 10);
   Serial.println(temp);
   hc06.println(temp);
-  delay(5000);
+  delay(120000);
 }
