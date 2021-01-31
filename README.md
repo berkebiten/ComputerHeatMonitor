@@ -1,5 +1,6 @@
 # ComputerHeatMonitor
 An IoT Application using Arduino UNO (with LM-35 and HC-06), Android Studio and Ubidots
+by Ali Atahan Topal and Berke Biten
 ## **Folders:**
  * ComputerHeatMonitor: Android Studio Application Source Code
  * ComputerHeatMonitorArduino: Arduino Source Code
