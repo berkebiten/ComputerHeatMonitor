@@ -11,8 +11,8 @@
         android:id="@+id/btnClear"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="96dp"
-        android:layout_marginBottom="35dp"
+        android:layout_marginTop="82dp"
+        android:layout_marginBottom="21dp"
         android:gravity="center"
         android:text="@string/clear"
         app:layout_constraintBottom_toTopOf="@+id/currentTemp"
@@ -24,51 +24,51 @@
     <TextView
         android:id="@+id/tvReceivedData"
         android:layout_width="137dp"
-        android:layout_height="0dp"
-        android:layout_marginBottom="61dp"
+        android:layout_height="57dp"
+        android:layout_marginBottom="92dp"
         android:gravity="center"
         android:textColor="@color/white"
         android:textSize="32dp"
-        app:layout_constraintBottom_toTopOf="@+id/previousFive"
+        app:layout_constraintBottom_toTopOf="@+id/results"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btnClear"
+        app:layout_constraintVertical_bias="1.0"
+        tools:ignore="MissingConstraints" />
+
+    <TextView
+        android:id="@+id/results"
+        android:layout_width="81dp"
+        android:layout_height="162dp"
+        android:layout_marginBottom="300dp"
+        android:gravity="center"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/currentTemp"
         tools:ignore="MissingConstraints" />
 
     <TextView
-        android:id="@+id/results"
-        android:layout_width="134dp"
-        android:layout_height="0dp"
-        android:layout_marginBottom="67dp"
-        android:gravity="center"
-        app:layout_constraintBottom_toTopOf="@+id/uuid"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/previousFive"
-        tools:ignore="MissingConstraints" />
-
-    <TextView
         android:id="@+id/previousFive"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="16dp"
+        android:layout_marginBottom="4dp"
         android:gravity="center"
         android:text="Last Five Measurements"
         android:textSize="20dp"
         app:layout_constraintBottom_toTopOf="@+id/results"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tvReceivedData" />
+        app:layout_constraintStart_toStartOf="parent" />
 
     <TextView
         android:id="@+id/currentTemp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="15dp"
+        android:layout_marginBottom="151dp"
         android:gravity="center"
         android:text="Current Measurement"
         android:textSize="20dp"
-        app:layout_constraintBottom_toTopOf="@+id/tvReceivedData"
+        app:layout_constraintBottom_toTopOf="@+id/results"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/btnClear"
@@ -78,23 +78,23 @@
         android:id="@+id/summaryBtn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="121dp"
+        android:layout_marginTop="145dp"
         android:text="Summary"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/uuid"
+        app:layout_constraintTop_toBottomOf="@+id/results"
         tools:ignore="MissingConstraints" />
 
     <TextView
         android:id="@+id/uuid"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="37dp"
-        android:layout_marginBottom="76dp"
+        android:layout_marginStart="12dp"
+        android:layout_marginTop="50dp"
+        android:layout_marginEnd="177dp"
         android:gravity="center"
         android:text="TextView"
-        app:layout_constraintBottom_toTopOf="@+id/summaryBtn"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="@+id/results"
         app:layout_constraintTop_toBottomOf="@+id/results" />
 

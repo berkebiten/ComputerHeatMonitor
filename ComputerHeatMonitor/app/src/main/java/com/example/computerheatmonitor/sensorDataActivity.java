@@ -115,7 +115,7 @@ public class sensorDataActivity extends AppCompatActivity{
             Variable var = new Variable(label);
             createDeviceVariable(var);
         }
-        yourDeviceID.setText(uniqueID);
+        yourDeviceID.setText(("Device UUID: " + uniqueID));
         Log.e(TAG,"UUID: "+uniqueID);
         getVariableId();
     }

@@ -2,151 +2,185 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/relativeLayout2"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".summaryPage">
-
-    <Button
-        android:id="@+id/monthly"
-        android:layout_width="116dp"
-        android:layout_height="45dp"
-        android:gravity="center"
-        android:text="@string/monthly"
-        tools:ignore="MissingConstraints"
-        tools:layout_editor_absoluteX="280dp"
-        tools:layout_editor_absoluteY="45dp" />
-
-    <TextView
-        android:id="@+id/textView3"
-        android:layout_width="64dp"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        android:text="Count"
-        android:textSize="15dp"
-        tools:ignore="MissingConstraints"
-        tools:layout_editor_absoluteX="216dp"
-        tools:layout_editor_absoluteY="198dp" />
-
-    <TextView
-        android:id="@+id/textView"
-        android:layout_width="64dp"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        android:text="Mean"
-        android:textSize="15dp"
-        tools:ignore="MissingConstraints"
-        tools:layout_editor_absoluteX="144dp"
-        tools:layout_editor_absoluteY="198dp" />
-
-    <TextView
-        android:id="@+id/count"
-        android:layout_width="64dp"
-        android:layout_height="30dp"
-        android:gravity="center"
-        android:textSize="15dp"
-        tools:ignore="MissingConstraints"
-        tools:layout_editor_absoluteX="216dp"
-        tools:layout_editor_absoluteY="231dp" />
-
-    <TextView
-        android:id="@+id/mean"
-        android:layout_width="64dp"
-        android:layout_height="30dp"
-        android:gravity="center"
-        android:textSize="15dp"
-        tools:ignore="MissingConstraints"
-        tools:layout_editor_absoluteX="144dp"
-        tools:layout_editor_absoluteY="231dp" />
-
-    <TextView
-        android:id="@+id/variance"
-        android:layout_width="64dp"
-        android:layout_height="30dp"
-        android:gravity="center"
-        android:textSize="15dp"
-        tools:ignore="MissingConstraints"
-        tools:layout_editor_absoluteX="119dp"
-        tools:layout_editor_absoluteY="151dp" />
-
-    <TextView
-        android:id="@+id/max"
-        android:layout_width="64dp"
-        android:layout_height="30dp"
-        android:gravity="center"
-        android:textSize="15dp"
-        tools:ignore="MissingConstraints"
-        tools:layout_editor_absoluteX="184dp"
-        tools:layout_editor_absoluteY="151dp" />
 
     <TextView
         android:id="@+id/min"
         android:layout_width="64dp"
         android:layout_height="30dp"
+        android:layout_marginStart="184dp"
+        android:layout_marginTop="116dp"
         android:gravity="center"
         android:textSize="15dp"
-        tools:ignore="MissingConstraints"
-        tools:layout_editor_absoluteX="248dp"
-        tools:layout_editor_absoluteY="151dp" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:ignore="MissingConstraints" />
 
     <TextView
-        android:id="@+id/textView5"
+        android:id="@+id/textView3"
         android:layout_width="64dp"
         android:layout_height="wrap_content"
+        android:layout_marginStart="212dp"
+        android:layout_marginTop="164dp"
         android:gravity="center"
-        android:text="Variance"
+        android:text="Count"
         android:textSize="15dp"
-        tools:ignore="MissingConstraints"
-        tools:layout_editor_absoluteX="119dp"
-        tools:layout_editor_absoluteY="118dp" />
-
-    <TextView
-        android:id="@+id/textView6"
-        android:layout_width="64dp"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        android:text="Max"
-        android:textSize="15dp"
-        tools:ignore="MissingConstraints"
-        tools:layout_editor_absoluteX="184dp"
-        tools:layout_editor_absoluteY="118dp" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:ignore="MissingConstraints" />
 
     <TextView
         android:id="@+id/textView4"
         android:layout_width="64dp"
         android:layout_height="wrap_content"
+        android:layout_marginStart="184dp"
+        android:layout_marginTop="96dp"
         android:gravity="center"
         android:text="Min"
         android:textSize="15dp"
-        tools:ignore="MissingConstraints"
-        tools:layout_editor_absoluteX="248dp"
-        tools:layout_editor_absoluteY="118dp" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:ignore="MissingConstraints" />
+
+    <TextView
+        android:id="@+id/max"
+        android:layout_width="64dp"
+        android:layout_height="30dp"
+        android:layout_marginStart="248dp"
+        android:layout_marginTop="116dp"
+        android:gravity="center"
+        android:textSize="15dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:ignore="MissingConstraints" />
+
+    <TextView
+        android:id="@+id/count"
+        android:layout_width="64dp"
+        android:layout_height="30dp"
+        android:layout_marginStart="212dp"
+        android:layout_marginTop="184dp"
+        android:gravity="center"
+        android:textSize="15dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:ignore="MissingConstraints" />
+
+    <TextView
+        android:id="@+id/mean"
+        android:layout_width="64dp"
+        android:layout_height="30dp"
+        android:layout_marginStart="120dp"
+        android:layout_marginTop="116dp"
+        android:gravity="center"
+        android:textSize="15dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:ignore="MissingConstraints" />
+
+    <TextView
+        android:id="@+id/textView5"
+        android:layout_width="64dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="148dp"
+        android:layout_marginTop="164dp"
+        android:gravity="center"
+        android:text="Variance"
+        android:textSize="15dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:ignore="MissingConstraints" />
+
+    <TextView
+        android:id="@+id/textView6"
+        android:layout_width="64dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="248dp"
+        android:layout_marginTop="96dp"
+        android:gravity="center"
+        android:text="Max"
+        android:textSize="15dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:ignore="MissingConstraints" />
+
+    <TextView
+        android:id="@+id/variance"
+        android:layout_width="64dp"
+        android:layout_height="30dp"
+        android:layout_marginStart="148dp"
+        android:layout_marginTop="184dp"
+        android:gravity="center"
+        android:textSize="15dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:ignore="MissingConstraints" />
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="64dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="120dp"
+        android:layout_marginTop="96dp"
+        android:gravity="center"
+        android:text="Mean"
+        android:textSize="15dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:ignore="MissingConstraints" />
+
+    <Button
+        android:id="@+id/weekly"
+        android:layout_width="112dp"
+        android:layout_height="45dp"
+        android:layout_marginStart="160dp"
+        android:layout_marginTop="28dp"
+        android:layout_marginEnd="160dp"
+        android:gravity="center"
+        android:text="@string/weekly"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:ignore="MissingConstraints" />
+
+    <Button
+        android:id="@+id/monthly"
+        android:layout_width="116dp"
+        android:layout_height="45dp"
+        android:layout_marginTop="28dp"
+        android:layout_marginEnd="24dp"
+        android:gravity="center"
+        android:text="@string/monthly"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:ignore="MissingConstraints" />
 
     <Button
         android:id="@+id/daily"
         android:layout_width="116dp"
         android:layout_height="45dp"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="28dp"
         android:gravity="center"
         android:text="@string/daily"
-        tools:ignore="MissingConstraints"
-        tools:layout_editor_absoluteX="36dp"
-        tools:layout_editor_absoluteY="45dp" />
-
-    <Button
-        android:id="@+id/weekly"
-        android:layout_width="111dp"
-        android:layout_height="45dp"
-        android:gravity="center"
-        android:text="@string/weekly"
-        tools:ignore="MissingConstraints"
-        tools:layout_editor_absoluteX="161dp"
-        tools:layout_editor_absoluteY="45dp" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:ignore="MissingConstraints" />
 
     <com.jjoe64.graphview.GraphView
         android:id="@+id/graph"
-        android:layout_width="390dp"
-        android:layout_height="476dp"
-        tools:ignore="MissingConstraints"
-        tools:layout_editor_absoluteX="21dp"
-        tools:layout_editor_absoluteY="317dp" />
+        android:layout_width="386dp"
+        android:layout_height="490dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.521"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.839"
+        tools:ignore="MissingConstraints" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
