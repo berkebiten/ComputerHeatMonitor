@@ -18,9 +18,6 @@ public interface UbidotsApi {
     @GET("variables/{id}/values?page=1")
     Call<Result> getTemperatures(@Header("X-Auth-Token") String token, @Path("id") String id, @Query("page_size") int size);
 
-    @POST("auth/token")
-    Call<Token> getAuth(@Header("x-ubidots-apikey") String apiKey);
-
     @POST("devices/{device_label}/temperature/values/")
     Call<Temperature> insertTemperature(@Header("X-Auth-Token") String token,@Path("device_label") String device_label, @Body Temperature temperature);
 

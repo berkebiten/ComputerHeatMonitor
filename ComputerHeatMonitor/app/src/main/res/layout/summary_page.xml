@@ -136,26 +136,13 @@
         android:id="@+id/weekly"
         android:layout_width="112dp"
         android:layout_height="45dp"
-        android:layout_marginStart="160dp"
+        android:layout_marginStart="212dp"
         android:layout_marginTop="28dp"
-        android:layout_marginEnd="160dp"
+        android:layout_marginEnd="108dp"
         android:gravity="center"
         android:text="@string/weekly"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:ignore="MissingConstraints" />
-
-    <Button
-        android:id="@+id/monthly"
-        android:layout_width="116dp"
-        android:layout_height="45dp"
-        android:layout_marginTop="28dp"
-        android:layout_marginEnd="24dp"
-        android:gravity="center"
-        android:text="@string/monthly"
-        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         tools:ignore="MissingConstraints" />
 
@@ -163,7 +150,7 @@
         android:id="@+id/daily"
         android:layout_width="116dp"
         android:layout_height="45dp"
-        android:layout_marginStart="24dp"
+        android:layout_marginStart="96dp"
         android:layout_marginTop="28dp"
         android:gravity="center"
         android:text="@string/daily"
@@ -173,14 +160,14 @@
 
     <com.jjoe64.graphview.GraphView
         android:id="@+id/graph"
-        android:layout_width="386dp"
-        android:layout_height="490dp"
+        android:layout_width="374dp"
+        android:layout_height="448dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.521"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.839"
+        app:layout_constraintVertical_bias="0.908"
         tools:ignore="MissingConstraints" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

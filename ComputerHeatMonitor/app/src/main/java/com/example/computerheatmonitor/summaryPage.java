@@ -38,7 +38,6 @@ public class summaryPage extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.summary_page);
         daily = findViewById(R.id.daily);
-        monthly = findViewById(R.id.monthly);
         weekly = findViewById(R.id.weekly);
         meanText = findViewById(R.id.mean);
         varianceText = findViewById(R.id.variance);
@@ -73,22 +72,6 @@ public class summaryPage extends AppCompatActivity {
             getCount(start, end);
 
             getTemperatures(id, 720, 'D');
-        });
-
-        monthly.setOnClickListener(v -> {
-            graph.removeAllSeries();
-            Calendar c = Calendar.getInstance();
-            Timestamp a = new Timestamp(c.getTimeInMillis());
-            long end = a.getTime();
-            c.set(Calendar.DATE, c.get(Calendar.DATE)-30);
-            Timestamp b = new Timestamp(c.getTimeInMillis());
-            long start = b.getTime();
-            getMean(start, end);
-            getVariance(start, end);
-            getMin(start, end);
-            getMax(start, end);
-            getCount(start, end);
-            getTemperatures(id, 5040, 'M');
         });
 
         weekly.setOnClickListener(v -> {
@@ -229,8 +212,15 @@ public class summaryPage extends AppCompatActivity {
                 data = getData(type);
                 mSeries1 = new LineGraphSeries<>(data);
                 graph.addSeries(mSeries1);
-                graph.getViewport().setYAxisBoundsManual(true);
+
+                if(type == 'D'){
+                    graph.getViewport().setMaxX(24);
+                } else {
+                    graph.getViewport().setMaxX(7);
+                }
+
                 graph.getViewport().setXAxisBoundsManual(true);
+                graph.getViewport().setYAxisBoundsManual(true);
             }
 
             @Override

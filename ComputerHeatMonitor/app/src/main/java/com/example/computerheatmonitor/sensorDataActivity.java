@@ -21,6 +21,7 @@ import android.os.Handler;
 import android.os.Looper;
 import android.util.Log;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 import java.io.IOException;
@@ -45,8 +46,9 @@ public class sensorDataActivity extends AppCompatActivity{
     private boolean isBluetoothConnected = false;
     List<Temperature> last5;
     double temp_thold = 27.0;
-    Button btnClear, summaryBtn;
+    Button btnClear, summaryBtn, setThresholdBtn;
     TextView tvReceivedData;
+    EditText editThreshold;
     TextView results;
     String address = null;
     private ProgressDialog progressDialog;
@@ -96,6 +98,8 @@ public class sensorDataActivity extends AppCompatActivity{
         btnClear = findViewById(R.id.btnClear);
         summaryBtn = findViewById(R.id.summaryBtn);
         yourDeviceID = findViewById(R.id.uuid);
+        setThresholdBtn = findViewById(R.id.setThreshold);
+        editThreshold = findViewById(R.id.editThreshold);
 
 
         new BTConnectAsync().execute();
@@ -106,6 +110,15 @@ public class sensorDataActivity extends AppCompatActivity{
             summaryPage.putExtra(EXTRA_ID, variable_id);
             Log.e(TAG,"ID: "+ variable_id);
             startActivity(summaryPage);
+        });
+
+        setThresholdBtn.setOnClickListener(v -> {
+            try {
+                temp_thold = Double.parseDouble(editThreshold.getText().toString());
+            } catch (NumberFormatException nfe){
+                Toast.makeText(getApplicationContext(), "The threshold you entered is invalid.", Toast.LENGTH_SHORT).show();
+            }
+
         });
 
         btnClear.setOnClickListener(view -> tvReceivedData.setText(" "));
@@ -147,7 +160,7 @@ public class sensorDataActivity extends AppCompatActivity{
 
                                     if (Double.parseDouble(data) < 25) {
                                         tvReceivedData.setTextColor(Color.GREEN);
-                                    } else if (Double.parseDouble(data) < 27){
+                                    } else if (Double.parseDouble(data) < temp_thold){
                                         tvReceivedData.setTextColor(Color.YELLOW);
                                     } else {
                                         tvReceivedData.setTextColor(Color.RED);
@@ -246,27 +259,6 @@ public class sensorDataActivity extends AppCompatActivity{
         });
 
     }
-
-//    public void getAuth(){
-//        Call<Token> call = ubidotsApi.getAuth("BBFF-6d0d857720f1cc053925242508684c9b6b0");
-//
-//        call.enqueue(new Callback<Token>(){
-//
-//            @Override
-//            public void onResponse(Call<Token> call, Response<Token> response) {
-//                if(!response.isSuccessful()){
-//                    Log.e(TAG, "Unsuccessfull" + response.message());
-//                }
-//                Token token = response.body();
-//                xAuthToken = token.getToken();
-//            }
-//
-//            @Override
-//            public void onFailure(Call<Token> call, Throwable t) {
-//                Log.e(TAG, "Web Service Error." + t);
-//            }
-//        });
-//    }
 
     public void insertTemperature(Temperature temp) {
         Call<Temperature> call = ubidotsApi.insertTemperature(xAuthToken, uniqueID, temp);
